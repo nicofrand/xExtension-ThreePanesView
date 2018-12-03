@@ -44,7 +44,7 @@
     };
 
     if (document.readyState === "loading") {
-        document.addEventListener("load", load);
+        window.addEventListener("load", load);
     } else {
         load();
     }
