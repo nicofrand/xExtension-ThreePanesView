@@ -1,0 +1,66 @@
+#bigMarkAsRead
+{
+    padding: 30px;
+}
+
+#threepanesviewcontainer
+{
+    display: flex;
+    overflow: hidden;
+
+    height: calc(100% - 48px);
+}
+
+#threepanesviewcontainer > div
+{
+    box-sizing: border-box;
+    width: 50%;
+    flex-shrink: 0;
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0;
+    margin: 0;
+}
+
+#stream
+{
+    resize: horizontal;
+}
+
+#stream .flux_content
+{
+    display: none;
+}
+
+#stream .day
+{
+    position: relative;
+}
+
+#threepanesview
+{
+    background-color: white;
+    border-left: 1px solid;
+}
+
+#threepanesview > .flux
+{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-left: none;
+    background-color: transparent;
+}
+
+#threepanesview > .flux > .content
+{
+    min-height: 0;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+#threepanesview > .flux > .horizontal-list
+{
+    flex-grow: 0;
+    flex-shrink: 0;
+}
