@@ -26,6 +26,7 @@
         window.addEventListener("resize", _resize);
 
         var panel = document.getElementById("threepanesview").querySelector(".flux");
+        var panelContent = panel.querySelector(".flux");
         stream.querySelectorAll(".flux").forEach((function(art)
         {
             art.addEventListener("click", function(event)
@@ -35,7 +36,7 @@
                 if (!(wrapper.getAttribute("style") || "").includes("height"))
                     _resize();
 
-                panel.innerHTML = event.currentTarget.querySelector(".flux_content").innerHTML;
+                panelContent.innerHTML = event.currentTarget.querySelector(".flux_content").innerHTML;
 
                 // Scroll to top of panel
                 panel.scrollTop = 0;
