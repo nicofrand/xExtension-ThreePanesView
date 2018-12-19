@@ -22,17 +22,17 @@
     margin: 0;
 }
 
-#stream
+body:not(.reader) #stream
 {
     resize: horizontal;
 }
 
-#stream .flux_content
+body:not(.reader) #stream .flux_content
 {
     display: none;
 }
 
-#stream .day
+body:not(.reader) #stream .day
 {
     position: relative;
 }

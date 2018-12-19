@@ -4,6 +4,24 @@
 
     var load = function(event)
     {
+        // Only enable for normal display mode
+        var searchParams = window.location.search.replace(/^\?/, "").split('&');
+        var size = searchParams.length;
+        for (var i = 0; i < size; ++i)
+        {
+            var sp = searchParams[i].split("=");
+            switch (sp[0])
+            {
+                case "c":
+                    return;
+
+                case "a":
+                default:
+                    if ((sp[1] || "normal") !== "normal")
+                        return;
+            }
+        }
+
         var stream = document.getElementById("stream");
         var content = stream.querySelector(".flux.current");
         var html = content ? content.querySelector(".flux_content").innerHTML : "";
