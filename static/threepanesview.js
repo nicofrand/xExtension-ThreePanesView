@@ -25,23 +25,26 @@
         _resize();
         window.addEventListener("resize", _resize);
 
-        var panel = document.getElementById("threepanesview").querySelector(".flux");
+        var panel = document.getElementById("threepanesview");
         var panelContent = panel.querySelector(".flux");
-        stream.querySelectorAll(".flux").forEach((function(art)
+
+        stream.addEventListener("click", function(event)
         {
-            art.addEventListener("click", function(event)
-            {
-                // Check the container has the expected height (which can sometimes be removed by
-                //something else).
-                if (!(wrapper.getAttribute("style") || "").includes("height"))
-                    _resize();
+            var closestArticle = event.target.closest(".flux");
 
-                panelContent.innerHTML = event.currentTarget.querySelector(".flux_content").innerHTML;
+            if (!closestArticle || !stream.contains(closestArticle))
+                return;
 
-                // Scroll to top of panel
-                panel.scrollTop = 0;
-            })
-        }));
+            // Check the container has the expected height (which can sometimes be removed by
+            //something else).
+            if (!(wrapper.getAttribute("style") || "").includes("height"))
+                _resize();
+
+            panelContent.innerHTML = closestArticle.querySelector(".flux_content").innerHTML;
+
+            // Scroll to top of panel
+            panel.scrollTop = 0;
+        });
     };
 
     if (document.readyState === "loading") {
