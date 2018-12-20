@@ -14,9 +14,13 @@
             {
                 case "c":
                     return;
+                
+                // Allow feed list view
+                case "get":
+                    break;
 
                 case "a":
-                default:
+                case "":
                     if ((sp[1] || "normal") !== "normal")
                         return;
             }
