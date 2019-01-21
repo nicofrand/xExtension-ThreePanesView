@@ -59,7 +59,7 @@
             {
                 var closestArticle = event.target.closest(".flux");
 
-                if (closestArticle && !stream.contains(closestArticle))
+                if (closestArticle && stream.contains(closestArticle))
                     onArticleOpened(closestArticle);
             });
         }
