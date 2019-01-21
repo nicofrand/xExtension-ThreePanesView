@@ -49,24 +49,32 @@
 
         var panel = document.getElementById("threepanesview");
         var panelContent = panel.querySelector(".flux");
-
-        stream.addEventListener("click", function(event)
-        {
-            var closestArticle = event.target.closest(".flux");
-
-            if (!closestArticle || !stream.contains(closestArticle))
-                return;
-
+        var onArticleOpened = function(articleElement) {
             // Check the container has the expected height (which can sometimes be removed by
             //something else).
             if (!(wrapper.getAttribute("style") || "").includes("height"))
                 _resize();
 
-            panelContent.innerHTML = closestArticle.querySelector(".flux_content").innerHTML;
+            panelContent.innerHTML = articleElement.querySelector(".flux_content").innerHTML;
 
             // Scroll to top of panel
             panel.scrollTop = 0;
+        };
+
+        document.addEventListener('freshrss:openArticle', function(event) {
+            onArticleOpened(event.target);
         });
+
+        // Legacy: deal with older FreshRSS versions without 'openArticle' event.
+        if (!window.freshrssOpenArticleEvent) {
+            stream.addEventListener("click", function(event)
+            {
+                var closestArticle = event.target.closest(".flux");
+
+                if (closestArticle && !stream.contains(closestArticle))
+                    onArticleOpened(closestArticle);
+            });
+        }
     };
 
     if (document.readyState === "loading") {
