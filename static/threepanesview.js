@@ -2,29 +2,17 @@
     'use strict';
     console.log("ThreePanesView FreshRSS extension detected");
 
-    var load = function(event)
+    var _load = function()
     {
-        // Only enable for normal display mode
-        var searchParams = window.location.search.replace(/^\?/, "").split('&');
-        var size = searchParams.length;
-        for (var i = 0; i < size; ++i)
-        {
-            var sp = searchParams[i].split("=");
-            switch (sp[0])
-            {
-                case "c":
-                    return;
-                
-                // Allow feed list view
-                case "get":
-                    break;
-
-                case "a":
-                case "":
-                    if ((sp[1] || "normal") !== "normal")
-                        return;
-            }
+        if (!window.context) {
+            console.log("ThreePanesView FreshRSS extension waiting for FreshRSS to be initialized");
+            window.setTimeout(_load, 100);
+            return;
         }
+
+        // Only enable for normal display mode
+        if (window.context.current_view !== "normal")
+            return;
 
         var stream = document.getElementById("stream");
         var content = stream.querySelector(".flux.current");
@@ -78,8 +66,8 @@
     };
 
     if (document.readyState === "loading") {
-        window.addEventListener("load", load);
+        window.addEventListener("load", _load);
     } else {
-        load();
+        _load();
     }
 }());
