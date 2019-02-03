@@ -45,6 +45,24 @@
 
             panelContent.innerHTML = articleElement.querySelector(".flux_content").innerHTML;
 
+            // We need to replace every id (and reference to it) by a new one to avoid duplicates.
+            panelContent.querySelectorAll("[id]").forEach(function(node) {
+                let ref = node.getAttribute("id");
+
+                if (!ref)
+                    return;
+
+                let newRef = `3panes-${ref}`;
+
+                // Set a new id value.
+                node.setAttribute("id", newRef);
+
+                // Update all references to it.
+                panelContent.querySelectorAll(`[href="#${ref}"]`).forEach(function(elt) {
+                    elt.setAttribute("href", `#${newRef}`);
+                });
+            });
+
             // Scroll to top of panel
             panel.scrollTop = 0;
         };
