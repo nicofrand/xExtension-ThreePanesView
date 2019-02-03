@@ -64,3 +64,14 @@ body:not(.reader) #stream .day
     flex-grow: 0;
     flex-shrink: 0;
 }
+
+#threepanesview .dropdown-menu
+{
+    bottom: 100%;
+}
+
+#threepanesview .dropdown-menu::after
+{
+    top: auto;
+    transform: rotate(-135deg);
+}
