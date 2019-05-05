@@ -67,6 +67,13 @@
         flex-shrink: 0;
     }
 
+    #threepanesview > .flux > iframe
+    {
+        height: 100%;
+        width: 100%;
+        border: 0;
+    }
+
     #threepanesview .dropdown-menu
     {
         bottom: 100%;

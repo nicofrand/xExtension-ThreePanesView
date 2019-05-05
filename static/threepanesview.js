@@ -37,13 +37,21 @@
 
         var panel = document.getElementById("threepanesview");
         var panelContent = panel.querySelector(".flux");
-        var onArticleOpened = function(articleElement) {
+        var setContent = function(html)
+        {
             // Check the container has the expected height (which can sometimes be removed by
             //something else).
             if (!(wrapper.getAttribute("style") || "").includes("height"))
                 _resize();
 
-            panelContent.innerHTML = articleElement.querySelector(".flux_content").innerHTML;
+            panelContent.innerHTML = html;
+
+            // Scroll to top of panel
+            panel.scrollTop = 0;
+        };
+
+        var onArticleOpened = function(articleElement) {
+            setContent(articleElement.querySelector(".flux_content").innerHTML);
 
             // We need to replace every id (and reference to it) by a new one to avoid duplicates.
             panelContent.querySelectorAll("[id]").forEach(function(node) {
@@ -62,25 +70,37 @@
                     elt.setAttribute("href", `#${newRef}`);
                 });
             });
-
-            // Scroll to top of panel
-            panel.scrollTop = 0;
         };
 
         document.addEventListener('freshrss:openArticle', function(event) {
             onArticleOpened(event.target);
         });
 
-        // Legacy: deal with older FreshRSS versions without 'openArticle' event.
-        if (!window.freshrssOpenArticleEvent) {
-            stream.addEventListener("click", function(event)
+        stream.addEventListener("click", function(event)
+        {
+            // Open external links in the 3rd pane too.
+            if (event.target.matches(".flux li.link *") && !event.ctrlKey)
             {
+                event.preventDefault();
+
+                var html = "";
+                var link = event.target.closest("a");
+                var url = link ? link.getAttribute("href") : "";
+                if (url) {
+                    setContent(`<iframe src="${url}"></iframe>`);
+                }
+
+                return;
+            }
+
+            // Legacy: deal with older FreshRSS versions without 'openArticle' event.
+            if (!window.freshrssOpenArticleEvent) {
                 var closestArticle = event.target.closest(".flux");
 
                 if (closestArticle && stream.contains(closestArticle))
                     onArticleOpened(closestArticle);
-            });
-        }
+            }
+        });
     };
 
     if (document.readyState === "loading") {
