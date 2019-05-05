@@ -11,7 +11,7 @@
         }
 
         // Only enable for normal display mode
-        if (window.context.current_view !== "normal")
+        if (window.context.current_view !== "normal" || window.innerWidth < 800)
             return;
 
         var stream = document.getElementById("stream");
