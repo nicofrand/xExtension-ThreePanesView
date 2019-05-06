@@ -30,7 +30,17 @@
             if (topOffset > 500)
                 window.setTimeout(_resize, 10);
             else
-                wrapper.style.height = `${window.innerHeight - topOffset}px`;
+            {
+                var availableHeight = window.innerHeight - topOffset;
+                wrapper.style.height = `${availableHeight}px`;
+
+                // Also set the height for the menu.
+                var menuForm = document.getElementById("mark-read-aside");
+                availableHeight -= menuForm.previousElementSibling.clientHeight;
+                availableHeight -= document.getElementById("nav_entries").clientHeight;
+                menuForm.style.height = `${availableHeight}px`;
+            }
+
         };
         _resize();
         window.addEventListener("resize", _resize);
@@ -76,8 +86,7 @@
             onArticleOpened(event.target);
         });
 
-        stream.addEventListener("click", function(event)
-        {
+        stream.addEventListener("click", function(event) {
             // Open external links in the 3rd pane too.
             if (event.target.matches(".flux li.link *") && !event.ctrlKey)
             {
@@ -100,6 +109,10 @@
                 if (closestArticle && stream.contains(closestArticle))
                     onArticleOpened(closestArticle);
             }
+        });
+
+        stream.addEventListener("load", function(event) {
+            console.log(event);
         });
     };
 
