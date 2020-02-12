@@ -61,6 +61,14 @@
         };
 
         var onArticleOpened = function(articleElement) {
+            // Each skin might have a different background color for the content than the #global
+            // node which is the parent they share with this extension container.
+            // As  we want to keep the same display, we need to copy it.
+            var contentStyles = window.getComputedStyle(articleElement);
+            panelContent.style.backgroundColor = contentStyles.backgroundColor;
+            panelContent.style.backgroundImage = contentStyles.backgroundImage;
+            panelContent.style.color = contentStyles.color;
+
             setContent(articleElement.querySelector(".flux_content").innerHTML);
 
             // We need to replace every id (and reference to it) by a new one to avoid duplicates.
