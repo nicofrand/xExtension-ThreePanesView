@@ -118,10 +118,6 @@
                     onArticleOpened(closestArticle);
             }
         });
-
-        stream.addEventListener("load", function(event) {
-            console.log(event);
-        });
     };
 
     if (document.readyState === "loading") {
