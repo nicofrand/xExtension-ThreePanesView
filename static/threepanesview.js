@@ -100,7 +100,6 @@
             {
                 event.preventDefault();
 
-                var html = "";
                 var link = event.target.closest("a");
                 var url = link ? link.getAttribute("href") : "";
                 if (url) {
