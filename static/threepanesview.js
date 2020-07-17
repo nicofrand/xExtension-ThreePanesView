@@ -22,6 +22,13 @@
         wrapper.appendChild(stream);
         wrapper.insertAdjacentHTML("beforeend", `<div id="threepanesview"><div class="flux">${html}</div></div>`);
 
+        // The document will not receive scroll events anymore (since the height equals 100%), so we
+        // set the stream node as the bow to follow and we re-dispatch it to the window.
+        box_to_follow = document.getElementById("stream");
+        document.getElementById("stream").addEventListener("scroll", function(event) {
+            window.dispatchEvent(new UIEvent(event.type, event))
+        });
+
         var _resize = function()
         {
             var topOffset = wrapper.offsetTop;
