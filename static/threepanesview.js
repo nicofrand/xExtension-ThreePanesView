@@ -69,7 +69,11 @@
 
         var onArticleOpened = function(articleElement) {
             // Make the new article visible if out of scroll.
-            articleElement.scrollIntoView(false);
+            articleElement.scrollIntoView({
+                block: "nearest",
+                inline: "nearest",
+                scrollMode: "if-needed"
+            });
 
             // Each skin might have a different background color for the content than the #global
             // node which is the parent they share with this extension container.
