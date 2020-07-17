@@ -68,6 +68,9 @@
         };
 
         var onArticleOpened = function(articleElement) {
+            // Make the new article visible if out of scroll.
+            articleElement.scrollIntoView(false);
+
             // Each skin might have a different background color for the content than the #global
             // node which is the parent they share with this extension container.
             // As  we want to keep the same display, we need to copy it.
