@@ -47,7 +47,7 @@
 
     #threepanesview > .flux
     {
-        height: 100%;
+        min-height: 100%;
         display: flex;
         flex-direction: column;
         border-left: none;
@@ -72,6 +72,7 @@
         height: 100%;
         width: 100%;
         border: 0;
+	flex-grow: 1;
     }
 
     #threepanesview .dropdown-menu
