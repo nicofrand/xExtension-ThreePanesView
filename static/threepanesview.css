@@ -72,12 +72,18 @@
         height: 100%;
         width: 100%;
         border: 0;
-	flex-grow: 1;
+       flex-grow: 1;
     }
 
     #threepanesview .dropdown-menu
     {
         bottom: 100%;
+    }
+
+    #threepanesview .dropdown-target:target ~ .dropdown-menu
+    {
+        display: flex;
+        flex-direction: column;
     }
 
     #threepanesview .dropdown-menu::after

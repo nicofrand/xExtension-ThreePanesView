@@ -22,6 +22,9 @@
         wrapper.appendChild(stream);
         wrapper.insertAdjacentHTML("beforeend", `<div id="threepanesview"><div class="flux">${html}</div></div>`);
 
+        // Set event listeners on the new panel (ex: click events to display labels, etc.)
+        init_stream(document.getElementById("threepanesview"));
+
         // The document will not receive scroll events anymore (since the height equals 100%), so we
         // set the stream node as the bow to follow and we re-dispatch it to the window.
         box_to_follow = document.getElementById("stream");
@@ -61,7 +64,7 @@
 
         var panel = document.getElementById("threepanesview");
         var panelContent = panel.querySelector(".flux");
-        var setContent = function(html)
+        var setContent = function(html, articleId)
         {
             // Check the container has the expected height (which can sometimes be removed by
             //something else).
@@ -69,6 +72,9 @@
                 _resize();
 
             panelContent.innerHTML = html;
+
+            // Duplicate the id attribute so that it can be retrieve by other functions
+            panelContent.setAttribute("id", articleId);
 
             // Scroll to top of panel
             panel.scrollTop = 0;
@@ -90,7 +96,7 @@
             panelContent.style.backgroundImage = contentStyles.backgroundImage;
             panelContent.style.color = contentStyles.color;
 
-            setContent(articleElement.querySelector(".flux_content").innerHTML);
+            setContent(articleElement.querySelector(".flux_content").innerHTML, articleElement.getAttribute("id"));
 
             // We need to replace every id (and reference to it) by a new one to avoid duplicates.
             panelContent.querySelectorAll("[id]").forEach(function(node) {
