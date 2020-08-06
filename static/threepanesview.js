@@ -43,8 +43,15 @@
 
                 // Also set the height for the menu.
                 var menuForm = document.getElementById("mark-read-aside");
-                availableHeight -= menuForm.previousElementSibling.clientHeight;
-                availableHeight -= document.getElementById("nav_entries").clientHeight;
+                var navEntries = document.getElementById("nav_entries");
+
+                if (menuForm)
+                    availableHeight -= menuForm.previousElementSibling.clientHeight;
+
+                // Might not exist on the labels view for ex.
+                if (navEntries)
+                    availableHeight -= navEntries.clientHeight;
+
                 menuForm.style.height = `${availableHeight}px`;
             }
 
